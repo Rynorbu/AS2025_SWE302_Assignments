@@ -28,6 +28,6 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=AS2025_SWE302_Assignments
-            -Dsonar.organization=rynorbu
+            -Dsonar.organization=Rynorbu
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
