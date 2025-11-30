@@ -8,7 +8,7 @@
 
 ### [RealWorld](https://github.com/gothinkster/realworld)
 
-Originally created for this [GH issue](https://github.com/reactjs/redux/issues/1353). This version has been adapted for testing module assignments with a local Go backend.
+Originally. created for this [GH issue](https://github.com/reactjs/redux/issues/1353). This version has been adapted for testing module assignments with a local Go backend.
 
 
 ## Getting startedv
