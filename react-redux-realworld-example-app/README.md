@@ -11,7 +11,7 @@
 Originally created for this [GH issue](https://github.com/reactjs/redux/issues/1353). This version has been adapted for testing module assignments with a local Go backend.
 
 
-## Getting started
+## Getting startedv
 
 To get the frontend running locally:
 
