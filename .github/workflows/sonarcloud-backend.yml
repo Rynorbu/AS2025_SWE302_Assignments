@@ -1,0 +1,26 @@
+name: SonarCloud Backend
+
+on:
+  push:
+    paths:
+      - 'golang-gin-realworld-example-app/**'
+  pull_request:
+    paths:
+      - 'golang-gin-realworld-example-app/**'
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: golang-gin-realworld-example-app
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
