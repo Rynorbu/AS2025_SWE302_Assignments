@@ -23,7 +23,7 @@ jobs:
         with:
           projectBaseDir: golang-gin-realworld-example-app
           args: >
-            -Dsonar.projectKey=AS2025_SWE302_Assignments_Backend
+            -Dsonar.projectKey=AS2025_SWE302_Assignments-backend
             -Dsonar.organization=rynorbu
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
