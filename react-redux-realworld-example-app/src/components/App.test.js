@@ -1,12 +1,32 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { screen } from '@testing-library/react';
 import { renderWithProviders, createMockStore } from '../test-utils';
-import App from './App';
+
+// Mock the store module to avoid redux-devtools-extension issues
+jest.mock('../store', () => ({
+  store: {
+    dispatch: jest.fn(),
+    getState: jest.fn(() => ({})),
+    subscribe: jest.fn(),
+    replaceReducer: jest.fn()
+  }
+}));
+
+// Mock agent module
+jest.mock('../agent', () => ({
+  setToken: jest.fn(),
+  Auth: {
+    current: jest.fn(() => Promise.resolve({ user: {} }))
+  }
+}));
+
+// Import App after mocks
+const App = require('./App').default;
 
 describe('App Component', () => {
   beforeEach(() => {
-    window.localStorage.clear();
+    globalThis.localStorage.clear();
+    jest.clearAllMocks();
   });
 
   test('renders header when app is loaded', () => {
@@ -51,7 +71,7 @@ describe('App Component', () => {
   });
 
   test('dispatches APP_LOAD with token from localStorage', () => {
-    window.localStorage.setItem('jwt', 'test-token-123');
+    globalThis.localStorage.setItem('jwt', 'test-token-123');
     
     const store = createMockStore({
       common: {
