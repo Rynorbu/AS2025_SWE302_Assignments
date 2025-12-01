@@ -2,6 +2,11 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { renderWithProviders, createMockStore } from '../test-utils';
 
+// Mock react-router-redux
+jest.mock('react-router-redux', () => ({
+  push: jest.fn()
+}));
+
 // Mock the store module to avoid redux-devtools-extension issues
 jest.mock('../store', () => ({
   store: {
