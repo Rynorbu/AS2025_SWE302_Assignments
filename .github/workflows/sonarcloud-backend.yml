@@ -47,10 +47,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          args: >
-            -Dsonar.projectKey=Rynorbu_AS2025_SWE302_Assignments
-            -Dsonar.organization=rynorbu
-            -Dsonar.sources=golang-gin-realworld-example-app
-            -Dsonar.exclusions=**/vendor/**,**/*_test.go
-            -Dsonar.test.inclusions=**/*_test.go
-            -Dsonar.go.coverage.reportPaths=golang-gin-realworld-example-app/coverage.out
+          projectBaseDir: golang-gin-realworld-example-app
