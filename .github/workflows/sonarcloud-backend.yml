@@ -1,0 +1,53 @@
+name: SonarCloud Backend Analysis
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'golang-gin-realworld-example-app/**'
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  sonarcloud-backend:
+    name: SonarCloud Backend (Go)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for better analysis
+      
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+      
+      - name: Install dependencies
+        working-directory: ./golang-gin-realworld-example-app
+        run: |
+          go mod download
+          go mod verify
+      
+      - name: Run tests with coverage
+        working-directory: ./golang-gin-realworld-example-app
+        run: |
+          go test ./... -coverprofile=coverage.out -covermode=atomic
+        continue-on-error: true  # Continue even if tests fail
+      
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=Rynorbu_AS2025_SWE302_Assignments
+            -Dsonar.organization=rynorbu
+            -Dsonar.sources=golang-gin-realworld-example-app
+            -Dsonar.exclusions=**/vendor/**,**/*_test.go
+            -Dsonar.go.coverage.reportPaths=golang-gin-realworld-example-app/coverage.out
+            -Dsonar.test.inclusions=**/*_test.go
