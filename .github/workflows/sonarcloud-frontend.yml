@@ -28,7 +28,7 @@ jobs:
       
       - name: Install dependencies
         working-directory: ./react-redux-realworld-example-app
-        run: npm ci
+        run: npm install
       
       - name: Run tests with coverage
         working-directory: ./react-redux-realworld-example-app
