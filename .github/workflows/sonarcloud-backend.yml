@@ -36,6 +36,11 @@ jobs:
           go test ./... -coverprofile=coverage.out -covermode=atomic
         continue-on-error: true
       
+      - name: List coverage file (debug)
+        run: |
+          ls -la golang-gin-realworld-example-app/ | grep coverage || echo "No coverage file found"
+          if [ -f golang-gin-realworld-example-app/coverage.out ]; then echo "Coverage file exists"; cat golang-gin-realworld-example-app/coverage.out | head -20; fi
+      
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

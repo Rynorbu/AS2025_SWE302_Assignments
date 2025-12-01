@@ -33,6 +33,11 @@ jobs:
         run: npm test -- --coverage --watchAll=false --coverageReporters=lcov
         continue-on-error: true
       
+      - name: List coverage file (debug)
+        run: |
+          ls -la react-redux-realworld-example-app/coverage/ || echo "No coverage directory found"
+          if [ -f react-redux-realworld-example-app/coverage/lcov.info ]; then echo "Coverage file exists"; head -20 react-redux-realworld-example-app/coverage/lcov.info; fi
+      
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
