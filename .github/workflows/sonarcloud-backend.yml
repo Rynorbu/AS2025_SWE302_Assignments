@@ -30,13 +30,11 @@ jobs:
           go mod download
           go mod verify
       
-      # Tests are currently failing due to JWT dependency conflict
-      # Commenting out to allow SonarCloud analysis to proceed
-      # - name: Run tests with coverage
-      #   working-directory: ./golang-gin-realworld-example-app
-      #   run: |
-      #     go test ./... -coverprofile=coverage.out -covermode=atomic
-      #   continue-on-error: true
+      - name: Run tests with coverage
+        working-directory: ./golang-gin-realworld-example-app
+        run: |
+          go test ./... -coverprofile=coverage.out -covermode=atomic
+        continue-on-error: true
       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -50,3 +48,4 @@ jobs:
             -Dsonar.sources=golang-gin-realworld-example-app
             -Dsonar.exclusions=**/vendor/**,**/*_test.go
             -Dsonar.test.inclusions=**/*_test.go
+            -Dsonar.go.coverage.reportPaths=golang-gin-realworld-example-app/coverage.out
