@@ -5,9 +5,9 @@ import (
 	"realworld-backend/common"
 	"strings"
 
-	"github.com/dgrijalva/jwt-go/request"
-	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt/v4/request"
+	"github.com/gin-gonic/gin"
 )
 
 // Strips 'TOKEN ' prefix from token string
