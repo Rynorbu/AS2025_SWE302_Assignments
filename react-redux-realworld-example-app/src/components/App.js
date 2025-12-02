@@ -31,15 +31,15 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.redirectTo) {
-      // this.context.router.replace(nextProps.redirectTo);
-      store.dispatch(push(nextProps.redirectTo));
+  componentDidUpdate(prevProps) {
+    if (this.props.redirectTo && this.props.redirectTo !== prevProps.redirectTo) {
+      // this.context.router.replace(this.props.redirectTo);
+      store.dispatch(push(this.props.redirectTo));
       this.props.onRedirect();
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
