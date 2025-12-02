@@ -853,11 +853,11 @@ import (
         "math/rand"
         "time"
 
-        "github.com/dgrijalva/jwt-go"
         "github.com/go-playground/validator/v10"
+        "github.com/golang-jwt/jwt/v4"
 
-        "github.com/gin-gonic/gin/binding"
         "github.com/gin-gonic/gin"
+        "github.com/gin-gonic/gin/binding"
 )
 
 var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
@@ -889,65 +889,67 @@ func GenToken(id uint) string <span class="cov8" title="1">{
 }</span>
 
 // My own Error type that will help return my customized Error info
-//  {"database": {"hello":"no such table", error: "not_exists"}}
+//
+//        {"database": {"hello":"no such table", error: "not_exists"}}
 type CommonError struct {
         Errors map[string]interface{} `json:"errors"`
 }
 
 // To handle the error returned by c.Bind in gin framework
-// https://github.com/go-playground/validator/blob/v9/_examples/translations/main.go
-func NewValidatorError(err error) CommonError <span class="cov8" title="1">{
+// https://github.com/go-playground/validator/<span class="cov8" title="1">blob/v9/_examples/translations/main.go
+func NewValidatorError(err error) CommonError {
         res := CommonError{}
         res.Errors = make(map[string]interface{})
-        errs := err.(validator.ValidationErrors)
-        for _, v := range errs </span><span class="cov8" title="1">{
+        errs := err.(validator.</span><span class="cov8" title="1">ValidationErrors)
+        for _, v := range errs {
                 // can translate each error one at a time.
-                //fmt.Println("gg",v.NameNamespace)
-                if v.Param() != "" </span><span class="cov8" title="1">{
-                        res.Errors[v.Field()] = fmt.Sprintf("{%v: %v}", v.Tag(), v.Param())
-                }</span> else<span class="cov8" title="1"> {
-                        res.Errors[v.Field()] = fmt.Sprintf("{key: %v}", v.Tag())
-                }</span>
+                //fmt.Println("gg",</span><span class="cov8" title="1">v.NameNamespace)
+                if v.Param() != "" {
+                        </span>res.E<span class="cov8" title="1">rrors[v.Field()] = fmt.Sprintf("{%v: %v}", v.Tag(), v.Param())
+                } else {
+                        </span>res.Errors[v.Field()] = fmt.Sprintf("{key: %v}", v.Tag())
+                }
 
-        }
-        <span class="cov8" title="1">return res</span>
+        <span class="cov8" title="1">}
+</span>        return res
 }
 
 // Warp the error info in a object
-func NewError(key string, err error) CommonError <span class="cov8" title="1">{
+func NewError(key string, err error) CommonError {
         res := CommonError{}
         res.Errors = make(map[string]interface{})
         res.Errors[key] = err.Error()
-        return res
-}</span>
+        </span>return res
+}
 
 // Changed the c.MustBindWith() -&gt;  c.ShouldBindWith().
 // I don't want to auto return 400 when error happened.
-// origin function is here: https://github.com/gin-gonic/gin/blob/master/context.go
-func Bind(c *gin.Context, obj interface{}) error <span class="cov8" title="1">{
+// origin function is here: https://github.com/gi<span class="cov8" title="1">n-gonic/gin/blob/master/context.go
+func Bind(c *gin.Context, obj interface{}) error {
         b := binding.Default(c.Request.Method, c.ContentType())
-        return c.ShouldBindWith(obj, b)
-}</span>
+        </span>return c.ShouldBindWith(obj, b)
+}
 </pre>
 		
 		<pre class="file" id="file6" style="display: none">package users
 
 import (
-        "github.com/dgrijalva/jwt-go"
-        "github.com/dgrijalva/jwt-go/request"
-        "realworld-backend/common"
-        "github.com/gin-gonic/gin"
         "net/http"
+        "realworld-backend/common"
         "strings"
+
+        "github.com/golang-jwt/jwt/v4"
+        "github.com/golang-jwt/jwt/v4/request"
+        "github.com/gin-gonic/gin"
 )
 
 // Strips 'TOKEN ' prefix from token string
-func stripBearerPrefixFromTokenString(tok string) (string, error) <span class="cov8" title="1">{
+func stripBearerPrefixFromTokenString(tok string) (string, error) {
         // Should be a bearer token
-        if len(tok) &gt; 5 &amp;&amp; strings.ToUpper(tok[0:6]) == "TOKEN " </span><span class="cov8" title="1">{
-                return tok[6:], nil
-        }</span>
-        <span class="cov8" title="1">return tok, nil</span>
+</span>        if len(tok) &gt; 5 &amp;&amp; strings.ToUpper(tok[0:6]) == "TOKEN " {
+                </span>return tok[6:], nil
+        <span class="cov8" title="1">}
+</span>        return tok, nil
 }
 
 // Extract  token from Authorization header
@@ -965,36 +967,37 @@ var MyAuth2Extractor = &amp;request.MultiExtractor{
 }
 
 // A helper to write user_id and user_model to the context
-func UpdateContextUserModel(c *gin.Context, my_user_id uint) <span class="cov8" title="1">{
-        var myUserModel UserModel
-        if my_user_id != 0 </span><span class="cov8" title="1">{
+func UpdateContextUserModel(c *gin.Context, my_user_id uint) {
+        var myUserModel Use</span><span class="cov8" title="1">rModel
+        if my_user_id != 0 {
                 db := common.GetDB()
-                db.First(&amp;myUserModel, my_user_id)
-        }</span>
-        <span class="cov8" title="1">c.Set("my_user_id", my_user_id)
-        c.Set("my_user_model", myUserModel)</span>
+                </span>db.First(&amp;myUserModel, my_user_id)
+        <span class="cov8" title="1">}
+        c.Set("my_user_id", my_user_id)
+</span>        c.Set("my_user_model", myUserModel)
 }
 
 // You can custom middlewares yourself as the doc: https://github.com/gin-gonic/gin#custom-middleware
-//  r.Use(AuthMiddleware(true))
-func AuthMiddleware(auto401 bool) gin.HandlerFunc <span class="cov8" title="1">{
-        return func(c *gin.Context) </span><span class="cov8" title="1">{
-                UpdateContextUserModel(c, 0)
-                token, err := request.ParseFromRequest(c.Request, MyAuth2Extractor, func(token *jwt.Token) (interface{}, error) </span><span class="cov8" title="1">{
-                        b := ([]byte(common.NBSecretPassword))
-                        return b, nil
-                }</span>)
-                <span class="cov8" title="1">if err != nil </span><span class="cov8" title="1">{
-                        if auto401 </span><span class="cov8" title="1">{
-                                c.AbortWithError(http.StatusUnauthorized, err)
-                        }</span>
-                        <span class="cov8" title="1">return</span>
-                }
-                <span class="cov8" title="1">if claims, ok := token.Claims.(jwt.MapClaims); ok &amp;&amp; token.Valid </span><span class="cov8" title="1">{
+//
+//        r.Use(AuthMiddleware(true)</span><span class="cov8" title="1">)
+func AuthMiddleware(auto401 bool) gin.HandlerFunc {
+        return func(c *gin.Context) {
+</span>                UpdateContextUserModel(c, 0)
+                token, err := request.ParseFromRequest(c.Request, MyAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
+                        </span>b := ([]byte(common.NBSecretPassword))
+                <span class="cov8" title="1">        return b, nil</span><span class="cov8" title="1">
+                })
+</span>                if err != nil {
+                        i</span>f auto401 {
+                        <span class="cov8" title="1">        c.Abo</span>rtWithError(http.StatusUnauthorized, err)
+                        }
+                <span class="cov8" title="1">        return
+</span>                }
+                if claims, ok := token.Claims.(jwt.MapClaims); ok &amp;&amp; token.Valid {
                         my_user_id := uint(claims["id"].(float64))
-                        //fmt.Println(my_user_id,claims["id"])
+                        </span>//fmt.Println(my_user_id,claims["id"])
                         UpdateContextUserModel(c, my_user_id)
-                }</span>
+                }
         }
 }
 </pre>
