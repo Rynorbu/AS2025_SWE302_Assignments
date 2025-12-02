@@ -1,10 +1,16 @@
-# Assignment 2 - SonarQube Implementation - Complete Package
+# Assignment 2: Static & Dynamic Application Security Testing
 
 ## 🎯 Quick Summary
 
-**Achievement**: Successfully implemented SonarCloud analysis with **77.81% frontend coverage** (from 40.88%), **262 passing tests**, and comprehensive documentation.
+This assignment demonstrates comprehensive security testing using industry-standard SAST and DAST tools on the RealWorld Conduit application.
 
-**Status**: ✅ Ready for submission (pending 5-minute manual security hotspot review)
+**Overall Status**: ✅ Organized and ready for submission
+
+**Achievement Highlights**:
+- ✅ SonarCloud analysis with **77.81% frontend coverage** (from 40.88%)
+- ✅ **262 passing tests** created
+- ✅ Comprehensive security documentation across all three tasks
+- ⏳ ZAP testing and Snyk analysis documentation pending completion
 
 ---
 
