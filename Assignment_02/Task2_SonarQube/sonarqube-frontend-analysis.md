@@ -526,6 +526,41 @@ The React frontend demonstrates **solid architecture** and **good security pract
 
 ---
 
+## Screenshots
+
+### Backend Dashboard Overview
+
+![Backend Dashboard](./screenshots/backend/14_dashboard.png)
+
+*Shared with backend - Overall SonarCloud dashboard view*
+
+### Security & JavaScript Issues
+
+![Security JavaScript Issues](./screenshots/frontend/20_security_javascript_issues.png)
+
+*Figure 1: Security vulnerabilities and JavaScript-specific issues in React code*
+
+### Code Quality Overview
+
+![Code Quality](./screenshots/frontend/21_code_quality.png)
+
+*Figure 2: Overall code quality metrics, maintainability, and reliability ratings*
+
+### Measures & Metrics
+
+![Measures Metrics](./screenshots/frontend/22_measures_metrics.png)
+
+*Figure 3: Detailed code metrics including coverage, duplications, and complexity*
+
+### Updated Dashboard (Post-Fixes)
+
+![Updated Dashboard](./screenshots/frontend/updates_fixed_sonarcubedashboard.png)
+
+*Figure 4: SonarCloud dashboard after implementing fixes and improvements*
+
+---
+
 **Analysis completed using SonarCloud Static Analysis**  
-**Screenshots referenced:** #19, #20, #21, #22  
+**Date:** December 1, 2025  
+**Tool:** SonarCloud with GitHub Actions CI/CD  
 **Test Coverage Report:** Jest output included above

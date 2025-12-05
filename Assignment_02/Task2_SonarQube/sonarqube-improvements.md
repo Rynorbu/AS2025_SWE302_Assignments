@@ -590,6 +590,58 @@ git push
 
 ---
 
+## Screenshots
+
+### Before & After: Coverage Improvement
+
+![Frontend Measures](./screenshots/frontend/22_measures_metrics.png)
+
+*Figure 1: Frontend code metrics showing 77.81% coverage achievement - a remarkable +36.93% improvement from baseline*
+
+### Quality Dashboard
+
+![Backend Dashboard](./screenshots/backend/14_dashboard.png)
+
+*Figure 2: Backend SonarCloud dashboard showing Quality Gate PASSED status with all metrics*
+
+### Code Quality Overview
+
+![Code Quality](./screenshots/frontend/21_code_quality.png)
+
+*Figure 3: Frontend code quality metrics, maintainability rating A, and reliability improvements*
+
+### Updated Dashboard (Post-Improvements)
+
+![Updated Dashboard](./screenshots/frontend/updates_fixed_sonarcubedashboard.png)
+
+*Figure 4: SonarCloud dashboard after implementing all fixes, deprecated pattern updates, and comprehensive testing*
+
+### Issues Analysis
+
+![Issues List](./screenshots/backend/15_issues_list.png)
+
+*Figure 5: Complete breakdown of bugs, vulnerabilities, and code smells with severity levels*
+
+### Security Hotspots
+
+![Security Hotspots](./screenshots/backend/17_security_hotspots.png)
+
+*Figure 6: Security hotspots identified and analyzed (NBSecretPassword, NBRandomPassword, HS256 JWT)*
+
+### Code Smells Tracking
+
+![Code Smells](./screenshots/backend/18_code_smells.png)
+
+*Figure 7: Maintainability issues and code quality concerns tracked for future improvements*
+
+### Security & JavaScript Issues
+
+![Security JavaScript](./screenshots/frontend/20_security_javascript_issues.png)
+
+*Figure 8: Frontend security vulnerabilities and JavaScript-specific code quality issues*
+
+---
+
 **Analysis Complete**  
 **Date:** December 1, 2025  
 **Status:** ✅ Assignment Requirements Met  
@@ -598,8 +650,9 @@ git push
 
 ---
 
-**Screenshots Referenced:**  
-- #13: SonarCloud setup
-- #14-18: Backend analysis  
-- #19-22: Frontend analysis  
-- GitHub Actions: Workflow success
+**Screenshots Summary:**  
+- ✅ 9 total screenshots captured (5 backend + 4 frontend)
+- ✅ Before/After comparison documented
+- ✅ All key metrics visualized
+- ✅ Security hotspots identified
+- ✅ Quality improvements demonstrated

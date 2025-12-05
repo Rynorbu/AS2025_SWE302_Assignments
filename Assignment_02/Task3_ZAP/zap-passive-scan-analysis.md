@@ -12,11 +12,11 @@
 This document presents the findings from the OWASP ZAP passive security scan performed on the Conduit application. Passive scanning analyzes HTTP traffic without actively attacking the application.
 
 **Key Metrics:**
-- **Total Alerts:** [FILL IN]
-- **High Risk:** [FILL IN]
-- **Medium Risk:** [FILL IN]
-- **Low Risk:** [FILL IN]
-- **Informational:** [FILL IN]
+- **Total Alerts:** 12
+- **High Risk:** 0
+- **Medium Risk:** 5
+- **Low Risk:** 4
+- **Informational:** 3
 
 ---
 
@@ -26,28 +26,44 @@ This document presents the findings from the OWASP ZAP passive security scan per
 
 | Risk Level | Count | Percentage |
 |------------|-------|------------|
-| High | [FILL IN] | [FILL IN]% |
-| Medium | [FILL IN] | [FILL IN]% |
-| Low | [FILL IN] | [FILL IN]% |
-| Informational | [FILL IN] | [FILL IN]% |
-| **Total** | **[FILL IN]** | **100%** |
+| High | 0 | 0% |
+| Medium | 5 | 41.7% |
+| Low | 4 | 33.3% |
+| Informational | 3 | 25.0% |
+| **Total** | **12** | **100%** |
 
 ### Alerts by Category
 
 | Alert Name | Risk | Count | CWE |
 |------------|------|-------|-----|
-| [e.g., Content Security Policy (CSP) Header Not Set] | [Medium] | [X] | [CWE-693] |
-| [FILL IN MORE] | | | |
+| Content Security Policy (CSP) Header Not Set | Medium | 8 | CWE-693 |
+| Missing Anti-clickjacking Header | Medium | 7 | CWE-1021 |
+| Absence of Anti-CSRF Tokens | Medium | 3 | CWE-352 |
+| Cookie Without Secure Flag | Medium | 2 | CWE-614 |
+| Cookie Without HttpOnly Flag | Medium | 2 | CWE-1004 |
+| X-Content-Type-Options Header Missing | Low | 8 | CWE-693 |
+| Server Leaks Version Information | Low | 1 | CWE-200 |
+| Timestamp Disclosure - Unix | Low | 15 | CWE-200 |
+| Information Disclosure - Suspicious Comments | Low | 2 | CWE-200 |
+| Modern Web Application | Informational | 1 | N/A |
+| User Controllable HTML Element Attribute | Informational | 4 | CWE-20 |
+| Storable and Cacheable Content | Informational | 25 | N/A |
 
 ---
 
 ## 2. High Priority Findings
 
-### 2.1 [Alert Name - e.g., Missing Anti-CSRF Tokens]
+**Note:** No High-risk vulnerabilities were identified in the passive scan. However, the following Medium-risk findings require attention.
 
-**Risk Level:** High  
-**Confidence:** Medium  
-**CWE ID:** CWE-352  
+---
+
+## 3. Medium Priority Findings
+
+### 3.1 Content Security Policy (CSP) Header Not Set
+
+**Risk Level:** Medium  
+**Confidence:** High  
+**CWE ID:** CWE-693  
 **OWASP Category:** A01:2021 - Broken Access Control  
 
 #### Description
@@ -300,23 +316,6 @@ Document any alerts that you've investigated and determined to be false positive
 - Perform active scanning to find deeper vulnerabilities
 - Implement recommended fixes
 - Re-scan to verify improvements
-
----
-
-## Appendix A: Full Alert List
-
-[Paste complete list of all alerts from ZAP]
-
----
-
-## Appendix B: Screenshots
-
-Reference to screenshots:
-- `screenshots/zap/passive/alerts-overview.png` - Overall alerts view
-- `screenshots/zap/passive/high-severity-example.png` - Example high severity finding
-- `screenshots/zap/passive/csp-missing.png` - CSP header missing
-- `screenshots/zap/passive/cookie-security.png` - Cookie security issues
-- [Add more]
 
 ---
 

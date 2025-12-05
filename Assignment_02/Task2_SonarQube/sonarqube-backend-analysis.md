@@ -462,5 +462,40 @@ The backend Go application demonstrates **good security practices** with no dete
 
 ---
 
+## Screenshots
+
+### Backend Dashboard Overview
+
+![Backend Dashboard](./screenshots/backend/14_dashboard.png)
+
+*Figure 1: SonarCloud backend dashboard showing Quality Gate status, overall metrics, and ratings*
+
+### Issues List
+
+![Issues List](./screenshots/backend/15_issues_list.png)
+
+*Figure 2: Complete list of bugs, vulnerabilities, and code smells identified in backend*
+
+### Vulnerability Details
+
+![Vulnerability Details](./screenshots/backend/16_vulnerability_details.png)
+
+*Figure 3: Detailed view of security vulnerabilities and their remediation guidance*
+
+### Security Hotspots
+
+![Security Hotspots](./screenshots/backend/17_security_hotspots.png)
+
+*Figure 4: Security-sensitive code locations requiring manual review*
+
+### Code Smells
+
+![Code Smells](./screenshots/backend/18_code_smells.png)
+
+*Figure 5: Maintainability issues and code quality concerns*
+
+---
+
 **Analysis completed using SonarCloud Static Analysis**  
-**Screenshots referenced:** #14, #15, #16, #17, #18
+**Date:** December 1, 2025  
+**Tool:** SonarCloud with GitHub Actions CI/CD

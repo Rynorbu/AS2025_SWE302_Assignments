@@ -2,9 +2,11 @@ package common
 
 import (
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"os"
 )
 
 type Database struct {
@@ -19,7 +21,14 @@ func Init() *gorm.DB {
 	if err != nil {
 		fmt.Println("db err: (Init) ", err)
 	}
-	db.DB().SetMaxIdleConns(10)
+
+	// Connection pool configuration for better performance
+	sqlDB := db.DB()
+	sqlDB.SetMaxIdleConns(10)
+	sqlDB.SetMaxOpenConns(25)
+	sqlDB.SetConnMaxLifetime(5 * time.Minute)
+	sqlDB.SetConnMaxIdleTime(2 * time.Minute)
+
 	//db.LogMode(true)
 	DB = db
 	return DB

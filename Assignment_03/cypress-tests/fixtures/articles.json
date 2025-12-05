@@ -1,0 +1,14 @@
+{
+  "sampleArticle": {
+    "title": "Test Article for E2E Testing",
+    "description": "This is a test article description for comprehensive E2E testing",
+    "body": "# Test Article\n\nThis is the body of the test article. It contains **markdown** formatting and demonstrates the article functionality.\n\n## Features\n- Create articles\n- Edit articles\n- Delete articles\n- Add comments\n- Favorite articles",
+    "tagList": ["testing", "cypress", "e2e"]
+  },
+  "secondArticle": {
+    "title": "Another Test Article",
+    "description": "Second test article for testing interactions",
+    "body": "This is another test article used for testing multiple article scenarios.",
+    "tagList": ["automation", "testing"]
+  }
+}

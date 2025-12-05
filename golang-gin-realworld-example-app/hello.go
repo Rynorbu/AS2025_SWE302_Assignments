@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 
-	"github.com/jinzhu/gorm"
 	"realworld-backend/articles"
 	"realworld-backend/common"
 	"realworld-backend/users"
+
+	"github.com/jinzhu/gorm"
 )
 
 func Migrate(db *gorm.DB) {
@@ -19,6 +20,32 @@ func Migrate(db *gorm.DB) {
 	db.AutoMigrate(&articles.FavoriteModel{})
 	db.AutoMigrate(&articles.ArticleUserModel{})
 	db.AutoMigrate(&articles.CommentModel{})
+
+	// Create performance indexes
+	createPerformanceIndexes(db)
+}
+
+// createPerformanceIndexes creates database indexes for better query performance
+func createPerformanceIndexes(db *gorm.DB) {
+	indexes := []string{
+		"CREATE INDEX IF NOT EXISTS idx_articles_created_at ON article_models(created_at DESC)",
+		"CREATE INDEX IF NOT EXISTS idx_articles_slug ON article_models(slug)",
+		"CREATE INDEX IF NOT EXISTS idx_articles_author_id ON article_models(author_id)",
+		"CREATE INDEX IF NOT EXISTS idx_comments_article_id ON comment_models(article_id)",
+		"CREATE INDEX IF NOT EXISTS idx_comments_author_id ON comment_models(author_id)",
+		"CREATE INDEX IF NOT EXISTS idx_favorites_article_id ON favorite_models(favorite_id)",
+		"CREATE INDEX IF NOT EXISTS idx_favorites_user_id ON favorite_models(favorite_by_id)",
+		"CREATE INDEX IF NOT EXISTS idx_favorites_composite ON favorite_models(favorite_id, favorite_by_id)",
+		"CREATE INDEX IF NOT EXISTS idx_tags_tag ON tag_models(tag)",
+		"CREATE INDEX IF NOT EXISTS idx_users_email ON user_models(email)",
+		"CREATE INDEX IF NOT EXISTS idx_users_username ON user_models(username)",
+	}
+
+	for _, sql := range indexes {
+		db.Exec(sql)
+	}
+
+	fmt.Println("✅ Performance indexes created")
 }
 
 func main() {
@@ -78,5 +105,5 @@ func main() {
 	//}).First(&userAA)
 	//fmt.Println(userAA)
 
-	r.Run() // listen and serve on 0.0.0.0:8080
+	r.Run(":8081") // listen and serve on 0.0.0.0:8081
 }
